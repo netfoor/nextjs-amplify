@@ -1,18 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+This is a [AWS Amplify](https://docs.amplify.aws/react/start/manual-installation/) project 
 ## Getting Started
 
-First, run the development server:
+First, create a project in your prefered framework, in this case I am using Next Js you can visit here:  [Next.js](https://nextjs.org)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest
+
+npm install --save-dev --save-exact @biomejs/biome
+
+npx shadcn@latest init
+
+
 ```
+
+Then you can create a sandbox, is a best practice to have a development enviroment
+
+```bash
+
+npx ampx sandbox
+
+```
+
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

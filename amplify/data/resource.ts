@@ -4,8 +4,8 @@ const schema = a.schema({
   Post: a
     .model({
       title: a.string().required(),
-      content: a.string().required(),
-      owner: a.string().required(),
+      content: a.string(),
+      owner: a.string(),
       comments: a.hasMany('Comment', 'postId'),
   })
     .authorization((allow) => [

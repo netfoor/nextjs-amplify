@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useTransition } from "react"
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button, Divider, Flex } from "@aws-amplify/ui-react";
@@ -9,6 +9,7 @@ import { Hub } from "aws-amplify/utils";
 
 export default function NavBar({isSignedIn}: {isSignedIn: boolean}) {
     const [authCheck, setAuthCheck] = useState(isSignedIn);
+    const [isPending, startTransition] = useTransition();
 
     const router = useRouter();
 
@@ -17,11 +18,22 @@ export default function NavBar({isSignedIn}: {isSignedIn: boolean}) {
             switch (data.payload.event) {
                 case "signedIn":
                     setAuthCheck(true);
-                    router.push("/");
+                    startTransition(() => {
+                        router.push("/");
+                    });
+                    startTransition(() => {
+                        router.refresh();
+                    });
+                    
                     break;
                 case "signedOut":
                     setAuthCheck(false);
-                    router.push("/signin");
+                    startTransition(() => {
+                        router.push("/");
+                    });
+                    startTransition(() => {
+                        router.refresh();
+                    });
                     break;
                 default:
                     break;

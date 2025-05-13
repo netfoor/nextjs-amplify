@@ -23,7 +23,7 @@ export default function Post({ id, title, isSignedIn }: PostProps) {
 
   return (
     <div className="border-b-2 border-gray-300 py-2 w-full flex justify-between items-center">
-      <Link href={`/post/${id}`} className="text-lg font-semibold hover:text-blue-500">
+      <Link href={`/posts/${id}`} className="text-lg font-semibold hover:text-blue-500">
         {title}
       </Link>
       {isSignedIn && (

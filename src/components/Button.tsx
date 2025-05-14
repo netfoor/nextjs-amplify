@@ -2,14 +2,23 @@
 
 import { Button } from "@aws-amplify/ui-react";
 import { useRouter } from "next/navigation";
-import { deletePostClient } from "@/utils/client-side";
+import { deletePostClient, deleteCommentClient } from "@/utils/client-side";
 
-export default function DeleteButton({ id }: { id: string }) {
+type DeleteButtonProps = {
+  id: string;
+  type: "post" | "comment";
+};
+
+export default function DeleteButton({ id, type }: DeleteButtonProps) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (confirm("Are you sure you want to delete this post?")) {
-      await deletePostClient(id);
+    if (confirm(`Are you sure you want to delete this ${type}?`)) {
+      if (type === "post") {
+        await deletePostClient(id);
+      } else if (type === "comment") {
+        await deleteCommentClient(id);
+      }
       router.refresh();
     }
   };
@@ -19,7 +28,7 @@ export default function DeleteButton({ id }: { id: string }) {
       variation="destructive" 
       onClick={handleDelete}
     >
-      Delete Post
+      {type === "post" ? "Delete Post" : "Delete Comment"}
     </Button>
   );
 }

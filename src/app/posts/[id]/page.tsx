@@ -2,6 +2,8 @@ import { cookieBasedClient, isAuthenticated } from "@/utils/amplify-utils";
 import Link from "next/link";
 import DeleteButton from "@/components/Button";
 import { redirect } from "next/navigation";
+import { addComment } from "@/app/_actions/actions";
+import AddComment from "@/components/AddComment";
 
 export default async function PostPage({ params }: { params: { id: string } }) {
     // Await the params object to ensure it's fully resolved
@@ -39,6 +41,9 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     // Filter comments related to the current post
     const comments = allComments.filter((comment) => comment.postId === id);
 
+
+    
+
     return (
         <div className="flex flex-col items-center justify-center w-full p-8">
             <h1 className="text-2xl font-bold mb-4">Post Information</h1>
@@ -51,6 +56,14 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                     </div>
                 )}
             </div>
+
+            {isSignedIn && (
+                <AddComment
+                addComment={addComment}
+                postId={id} // Just pass the ID instead of the whole post
+                paramsId={id}
+            />
+            )}
 
             <h1 className="text-2xl font-bold mb-4">Comments</h1>
             {comments.length > 0 ? (

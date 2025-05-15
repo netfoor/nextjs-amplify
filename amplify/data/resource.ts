@@ -18,7 +18,7 @@ const schema = a.schema({
       content: a.string().required(),
       post: a.belongsTo('Post', 'postId'),
       postId: a.id().required(),
-      owner: a.string().required(),
+      owner: a.string(),
     })
     .authorization((allow) => [
       allow.publicApiKey().to(["read"]),
